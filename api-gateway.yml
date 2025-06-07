@@ -11,12 +11,17 @@ spring:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
       globalcors:
         cors-configurations:
           "[/**]":
-            allowed-origins: "*"
+            allowed-origins:
+            - "http://localhost:3000"
+            - "http://localhost:80"
+            - "http://localhost"
+            - "http://frontend"
             allowed-methods: "*"
-            allowed-headers: "*"
+            allowed-headers: "Authorization,Content-Type,Accept,Origin,X-Requested-With"
             allow-credentials: false
       routes:
         - id: catalog-service
