@@ -23,20 +23,20 @@ spring:
             - "http://frontend"
             allowed-methods: "*"
             allowed-headers: "Authorization,Content-Type,Accept,Origin,X-Requested-With"
-            allow-credentials: false
+            allow-credentials: true
       routes:
         - id: catalog-service
           uri: ${CATALOG_SERVICE_URL:http://localhost:8081}
           predicates:
             - Path=/api/catalog/**
           filters:
-            - RewritePath=/api/catalog/?(?<segment>.*), api/${segment}
+            - RewritePath=/api/catalog/?(?<segment>.*), /api/${segment}
         - id: orders-service
           uri: ${ORDER_SERVICE_URL:http://localhost:8082}
           predicates:
             - Path=/api/orders/**
           filters:
-            - RewritePath=/api/orders/?(?<segment>.*), api/${segment}
+            - RewritePath=/api/orders/?(?<segment>.*), /api/${segment}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
