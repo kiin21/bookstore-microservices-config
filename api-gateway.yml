@@ -36,7 +36,7 @@ spring:
           predicates:
             - Path=/orders/**
           filters:
-            - RewritePath=/api/orders/?(?<segment>.*), /${segment}
+            - RewritePath=/orders/?(?<segment>.*), /${segment}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
