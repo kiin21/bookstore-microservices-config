@@ -28,15 +28,15 @@ spring:
         - id: catalog-service
           uri: ${CATALOG_SERVICE_URL:http://localhost:8081}
           predicates:
-            - Path=/api/catalog/**
+            - Path=/catalog/**
           filters:
-            - RewritePath=/api/catalog/?(?<segment>.*), /api/${segment}
+            - RewritePath=/catalog/?(?<segment>.*), /${segment}
         - id: orders-service
           uri: ${ORDER_SERVICE_URL:http://localhost:8082}
           predicates:
-            - Path=/api/orders/**
+            - Path=/orders/**
           filters:
-            - RewritePath=/api/orders/?(?<segment>.*), /api/${segment}
+            - RewritePath=/orders/?(?<segment>.*), /${segment}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
