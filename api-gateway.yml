@@ -1,7 +1,6 @@
 # API Gateway Configuration
 server:
   port: 8989
-  shutdown: graceful
 
 spring:
   application:
@@ -16,10 +15,10 @@ spring:
         cors-configurations:
           "[/**]":
             allowed-origins:
-            - "http://localhost:3000"
-            - "http://localhost:80"
-            - "http://localhost"
-            - "http://frontend"
+              - "http://localhost:3000"
+              - "http://localhost:80"
+              - "http://localhost"
+              - "http://frontend"
             allowed-methods: "*"
             allowed-headers: "Authorization,Content-Type,Accept,Origin,X-Requested-With"
             allow-credentials: false
@@ -48,26 +47,7 @@ spring:
     problemdetails:
       enabled: true
 
-# Actuator Configuration
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  metrics:
-    tags:
-      application: ${spring.application.name}
-  tracing:
-    enabled: false
-    sampling:
-      probability: 1.0
-
 # Swagger Configuration
 springdoc:
   swagger-ui:
     use-root-path: true
-  # urls:
-  #   - name: catalog
-  #     url: /v3/api-docs/catalog
-  #   - name: orders
-  #     url: /v3/api-docs/orders

@@ -1,7 +1,6 @@
 # Notification Service Configuration
 server:
   port: 8083
-  shutdown: graceful
 
 spring:
   application:
@@ -10,11 +9,6 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:35432/postgres}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
-  jpa:
-    open-in-view: false
-    show-sql: true
-    hibernate:
-      ddl-auto: update
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
@@ -41,20 +35,3 @@ notifications:
   delivered-orders-queue: delivered-orders
   cancelled-orders-queue: cancelled-orders
   error-orders-queue: error-orders
-
-# Actuator Configuration
-management:
-  info:
-    git:
-      mode: full
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  metrics:
-    tags:
-      application: ${spring.application.name}
-  tracing:
-    enabled: false
-    sampling:
-      probability: 1.0

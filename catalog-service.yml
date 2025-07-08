@@ -1,7 +1,6 @@
 # Catalog Service Configuration
 server:
   port: 8081
-  shutdown: graceful
 
 spring:
   application:
@@ -10,35 +9,15 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:15432/postgres}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
-  jpa:
-    open-in-view: false
-    show-sql: false
-    hibernate:
-      ddl-auto: update
 
 # Catalog Service Specific Configuration
 catalog:
   page-size: 10
 
-# Actuator Configuration
+# Override tracing for catalog service
 management:
-  info:
-    git:
-      mode: full
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  metrics:
-    tags:
-      application: ${spring.application.name}
   tracing:
     enabled: false
-    sampling:
-      probability: 1.0
-  zipkin:
-    tracing:
-      endpoint: http://tempo:9411
 
 # Swagger Configuration
 swagger:

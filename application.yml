@@ -1,16 +1,45 @@
 # Default configuration for all microservices
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
+server:
+  shutdown: graceful
 
 spring:
   jpa:
+    open-in-view: false
+    show-sql: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+
+# Common Eureka configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka
+
+# Common Actuator configuration
+management:
+  info:
+    git:
+      mode: full
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  tracing:
+    enabled: true
+  otlp:
+    tracing:
+      endpoint: http://tempo:4318/v1/traces
+  endpoint:
+    env:
+      show-values: ALWAYS
+
+# OAuth2 Configuration
+oauth2:
+  server-url: ${OAUTH2_SERVER_URL:http://localhost:9191}
+  realm-url: ${oauth2.server-url}/realms/bookstore
 
 # Common logging configuration
 logging:

@@ -19,7 +19,7 @@ eureka:
     enable-self-preservation: false
     eviction-interval-timer-in-ms: 5000
 
-# Actuator Configuration
+# Override management for discovery server
 management:
   endpoints:
     web:
