@@ -9,7 +9,7 @@ spring:
 # Eureka Server Configuration
 eureka:
   instance:
-    hostname: localhost
+    hostname: discovery-server
   client:
     register-with-eureka: false
     fetch-registry: false
