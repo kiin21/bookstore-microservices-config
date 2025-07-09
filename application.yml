@@ -17,34 +17,22 @@ eureka:
 
 # Common Actuator configuration
 management:
-  info:
-    git:
-      mode: full
   endpoints:
     web:
       exposure:
         include: "*"
-  metrics:
-    tags:
-      application: ${spring.application.name}
   tracing:
-    enabled: true
+    enabled: ${MANAGEMENT_TRACING_ENABLED:true}
   otlp:
     tracing:
-      endpoint: http://tempo:4318/v1/traces
-  endpoint:
-    env:
-      show-values: ALWAYS
+      endpoint: ${MANAGEMENT_OTLP_TRACING_ENDPOINT:http://tempo:4317}
+
+# Logging
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG
 
 # OAuth2 Configuration
 oauth2:
   server-url: ${OAUTH2_SERVER_URL:http://localhost:9191}
   realm-url: ${oauth2.server-url}/realms/bookstore
-
-# Common logging configuration
-logging:
-  level:
-    root: INFO
-    com.kiin: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

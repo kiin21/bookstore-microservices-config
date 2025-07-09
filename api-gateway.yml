@@ -16,12 +16,13 @@ spring:
           "[/**]":
             allowed-origins:
               - "http://localhost:3000"
+              - "http://localhost:8989"
               - "http://localhost:80"
               - "http://localhost"
               - "http://frontend"
             allowed-methods: "*"
             allowed-headers: "Authorization,Content-Type,Accept,Origin,X-Requested-With"
-            allow-credentials: false
+            allow-credentials: true
       routes:
         - id: catalog-service
           uri: ${CATALOG_SERVICE_URL:http://localhost:8081}
@@ -43,6 +44,15 @@ spring:
             - RewritePath=/v3/api-docs/?(?<segment>.*), /${segment}/v3/api-docs
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Methods Access-Control-Allow-Headers RETAIN_FIRST
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY,GATEWAY_TIMEOUT
+            methods: GET,POST,PUT,DELETE
+        - name: CircuitBreaker
+          args:
+            name: default
+            fallbackUri: forward:/fallback
   mvc:
     problemdetails:
       enabled: true
@@ -51,3 +61,7 @@ spring:
 springdoc:
   swagger-ui:
     use-root-path: true
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway
