@@ -14,11 +14,6 @@ spring:
 catalog:
   page-size: 10
 
-# Override tracing for catalog service
-management:
-  tracing:
-    enabled: false
-
 # Swagger Configuration
 swagger:
   api-gateway-url: http://localhost:8989/catalog
